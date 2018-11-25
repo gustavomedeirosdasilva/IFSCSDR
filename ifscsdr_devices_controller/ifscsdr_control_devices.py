@@ -126,7 +126,7 @@ class IFSCSDRControlDevices(threading.Thread):
                 self.__openDeviceOnFail(settings, old_settings)
                 return
 
-        if settings['transmit'] == True: 
+        if settings['transmit'] == True:
             device.startSendToServer()
         elif settings['transmit'] == False:
             device.stopSendToServer()

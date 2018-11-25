@@ -1,0 +1,93 @@
+<html>
+<head>
+    <link rel='shortcut icon' href='favicon.png'/>
+    <title>IFSCSDR</title>
+</head>
+<body>
+
+    <a href="https://github.com/gustavomedeirosdasilva/IFSCSDR"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
+    <center>
+        <div id="logo" style="position: relative; overflow: hidden; width: 80%">
+            <div id="ifscsdr" style="position: relative; width: 50%; float: left;">
+                <img src="logo_ifscsj.png" style="width: 250px; height: 90px;">
+            </div>
+            <div id="ifscsdr" style="position: relative; width: 40%; float: left;">
+                <img src="logo_ifscsdr.png" style="width: 250px ;height: 90px;">
+            </div>
+            <div id="config" style="position: relative; width: 10%; float: left;">
+                <p id="text" style="position: absolute;">
+                    <a href="login">Login</a> 
+                </p>
+            </div>
+        </div>
+
+        <div id="canvas" style="position: relative; overflow: hidden; width: 100%">
+            <canvas id="fft_canvas"></canvas></br>
+            <canvas id="waterfall_canvas"></canvas></br>
+        </div>
+
+        <div id="menu" style="position: relative; overflow: hidden; width: 80%">
+            <div id="menu_fft" style="position: relative; width: 25%; float: left;">
+                SDR:
+                <select id="sdr_devices">
+                </select></br></br>
+
+                Tempo de atualização:
+                <select id="fft_refresh_time">
+                    <option value="200"> 200 ms
+                    <option value="350"> 350 ms
+                    <option value="500"> 500 ms
+                    <option value="1000"> 1 seg
+                </select></br>
+
+                <form>
+                Zoom:
+                <input id="zoom" type="range" name="points" min="1" max="20" step="1" style="width:40%" oninput="zoom_value.value=zoom.value"> x 
+                <output name="zoom_value" for="zoom">1</output></br>
+                </form>
+            </div>
+
+            <div id="menu_waterfall" style="position: relative; width: 25%; float: left;">
+                Faixa de cor do Waterfall: </br>
+                <form>
+                Mín: <input id="waterfall_range_min" type="range" name="points" min="-100" max="0" style="width:40%" oninput="waterfall_range_min_value.value=parseInt(waterfall_range_min.value)">
+                <output id="waterfall_range_min_value" for="waterfall_range_min"></output> dB</br>
+
+                Máx: <input id="waterfall_range_max" type="range" name="points" min="-100" max="0" style="width:40%"  oninput="waterfall_range_max_value.value=parseInt(waterfall_range_max.value)">
+                <output id="waterfall_range_max_value" for="waterfall_range_max"></output> dB</br>
+                </form>
+            </div>
+
+            <div id="menu_demodulador" style="position: relative; width: 25%; float: left;">
+                Demodulador:
+                <select id="demodulation_type">
+                    <option value="wfm"> WFM
+                    <option value="nfm"> NFM
+                    <option value="am"> AM
+                    <option value="usb"> USB
+                    <option value="lsb"> LSB
+                </select></br>
+
+                <form>
+                Frequência: <input id="frequency_input" type="text" name="input" size="10">
+                <br>
+                Banda: <input id="bandwidth_input" type="text" name="input" size="10">
+                </form>
+
+            </div>
+
+            <div id="menu_ganho" style="position: relative; width: 25%; float: left;">
+                <form>
+                Ganho do audio: </br>
+                <input id="audio_gain" type="range" name="points" min="0" max="10" step="1" style="width:40%" oninput="audio_gain_value.value=audio_gain.value"> x 
+                <output name="audio_gain_value" for="audio_gain">1</output></br>
+                </form>
+            </div>
+        </div>
+    </center>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>

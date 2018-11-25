@@ -4,7 +4,7 @@ import json
 import os
 from ifscsdr_client import IFSCSDRClient
 
-if __name__ == '__main__':
+def main():
     path = os.path.dirname(os.path.abspath( __file__ ))
     config_file = path + '/config.json'
     default_server = '127.0.0.1'
@@ -38,3 +38,7 @@ if __name__ == '__main__':
 
     client = IFSCSDRClient(server, port)
     client.runStateMachine()
+
+
+if __name__ == '__main__':
+    main()

@@ -25,6 +25,11 @@ class IFSCSDRClient():
 
     def __decodeDataTryToSetDeviceSettings(self, data):
         try:
+            data = data.decode('utf-8')
+        except:
+            None
+
+        try:
             data_d = json.loads(data)
         except:
             print('Warning: data is not a json: ', data)
