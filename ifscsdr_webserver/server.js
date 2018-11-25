@@ -148,7 +148,13 @@ app.post('/login', function (req, res) {
         return;
     }
 
-    var users = JSON.parse(fs.readFileSync(__dirname + '/users.json', 'utf8'));
+    var users = null;
+    try {
+        users = JSON.parse(fs.readFileSync(__dirname + '/users.json', 'utf8'));
+    } catch (err) {
+        console.log('File users.json not found!');
+    }
+
     if (!users) {
         res.send('<html><head><meta http-equiv="refresh" content="2; URL=/"></head><body>Failed</body></html>');
         return;
@@ -218,9 +224,11 @@ app.post('/device_config', function (req, res) {
         return;
     }
 
-    var devices_settings = JSON.parse(fs.readFileSync(__dirname + '/devices.json', 'utf8'));
-    if (!devices_settings) {
-        fs.writeFileSync(__dirname + '/devices.json', JSON.stringify([req.body], null, 4), 'utf8');
+    var devices_settings = null;
+    try {
+        devices_settings = JSON.parse(fs.readFileSync(__dirname + '/devices.json', 'utf8'));
+    } catch (err) {
+        devices_settings = [];
     }
 
     var device = devices_settings.find(obj => obj.serial === req.body.serial);
@@ -445,9 +453,11 @@ class IFSCSDRDeviceServer {
     }
 
     loadSettings() {
-        var devices_settings = JSON.parse(fs.readFileSync(__dirname + '/devices.json', 'utf8'));
-        if (!devices_settings) {
-            return;
+        var devices_settings = null;
+        try {
+            devices_settings = JSON.parse(fs.readFileSync(__dirname + '/devices.json', 'utf8'));
+        } catch (err) {
+            devices_settings = [];
         }
 
         var device = devices_settings.find(obj => obj.serial === this.device);
@@ -459,7 +469,7 @@ class IFSCSDRDeviceServer {
             this.demodulator = device.demodulator;
             this.up_converter = device.up_converter;
         } else {
-            console.log('Device ' + server.IFSCSDRDeviceServer.device + ' not found in devices.json.');
+            console.log('Device ' + this.device + ' not found in devices.json.');
             this.center_freq = 100e6;
             this.sample_rate = 2.88e6;
             this.gain = 'auto';

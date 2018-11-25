@@ -13,3 +13,5 @@ Run:
 ```
 npm start
 ```
+
+To configure devices click in Login. User is `admin` and default password is `admin`.
